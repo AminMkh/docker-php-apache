@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  web:
+    container_name: ntm_web
+    build: .
+    ports:
+      - "80:80"
+#      - "9000:9000"
+    volumes:
+      - ./src:/var/www/html/
+      - ./conf/apache:/etc/apache2/sites-enabled/
+      - ./conf/php:/usr/local/etc/php/
+  db:
+    container_name: ntm_db
+    image: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/:/var/lib/mysql/
+      - ./conf/mysql:/etc/mysql/
+    environment:
+      MYSQL_DATABASE: ntm
+      MYSQL_USER: ntm_user
+      MYSQL_PASSWORD: ntm_password
+      MYSQL_ROOT_PASSWORD: ntm_password
