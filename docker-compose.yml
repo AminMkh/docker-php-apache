@@ -2,7 +2,7 @@ version: '2'
 
 services:
   web:
-    container_name: ntm_web
+    container_name: web
     build: .
     ports:
       - "80:80"
@@ -12,7 +12,7 @@ services:
       - ./conf/apache:/etc/apache2/sites-enabled/
       - ./conf/php:/usr/local/etc/php/
   db:
-    container_name: ntm_db
+    container_name: db
     image: mysql
     ports:
       - "3306:3306"
@@ -20,7 +20,7 @@ services:
       - ./db/:/var/lib/mysql/
       - ./conf/mysql:/etc/mysql/
     environment:
-      MYSQL_DATABASE: ntm
-      MYSQL_USER: ntm_user
-      MYSQL_PASSWORD: ntm_password
-      MYSQL_ROOT_PASSWORD: ntm_password
+      MYSQL_DATABASE: main
+      MYSQL_USER: main_user
+      MYSQL_PASSWORD: main_password
+      MYSQL_ROOT_PASSWORD: root_password
