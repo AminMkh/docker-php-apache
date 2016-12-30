@@ -2,20 +2,20 @@ version: '2'
 
 services:
   web:
-    container_name: web
+    #container_name: web
     build: .
     ports:
-      - "80:80"
-#      - "9000:9000"
+      - 80:80
+#      - 9000:9000
     volumes:
       - ./src:/var/www/html/
       - ./conf/apache:/etc/apache2/sites-enabled/
       - ./conf/php:/usr/local/etc/php/
   db:
-    container_name: db
+    #container_name: db
     image: mysql
     ports:
-      - "3306:3306"
+      - 3306:3306
     volumes:
       - ./db/:/var/lib/mysql/
       - ./conf/mysql:/etc/mysql/
