@@ -1,3 +1,2 @@
 # docker-php7-apache
-Quick docker image to use with Laravel
-
+Quick docker container to use with Laravel
