@@ -8,7 +8,7 @@ services:
       - 80:80
 #      - 9000:9000
     volumes:
-      - ./src:/var/www/html/
+      - ../:/var/www/html/
       - ./conf/apache:/etc/apache2/sites-enabled/
       - ./conf/php:/usr/local/etc/php/
   db:

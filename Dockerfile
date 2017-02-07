@@ -16,6 +16,7 @@ RUN \
 	&& docker-php-ext-install mysqli \
 	&& docker-php-ext-install pdo_mysql \
 	&& docker-php-ext-install zip
+  
 # xdebug, if you want to debug
 RUN pecl install xdebug
 
@@ -24,4 +25,3 @@ RUN curl -sS https://getcomposer.org/installer | php --  --install-dir=/usr/bin 
 
 # apache configurations, mod rewrite
 RUN ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load
-
