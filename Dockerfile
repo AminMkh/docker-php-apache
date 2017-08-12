@@ -1,5 +1,8 @@
 FROM php:7-apache
 
+# echo PHP version :)
+RUN php -v & a2query -v
+
 # installing required stuff
 RUN apt-get update
 RUN apt-get install -y unzip libaio-dev libmcrypt-dev git libgd2-xpm-dev*
@@ -17,11 +20,16 @@ RUN \
 	&& docker-php-ext-install pdo_mysql \
 	&& docker-php-ext-install zip
   
-# xdebug, if you want to debug
-RUN pecl install xdebug
-
 # PHP composer
 RUN curl -sS https://getcomposer.org/installer | php --  --install-dir=/usr/bin --filename=composer
 
 # apache configurations, mod rewrite
-RUN ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load
+RUN a2enmod rewrite
+RUN a2enmod ssl
+
+# nodejs latest
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN apt install -y nodejs
+
+# zip extension
+RUN pecl install xdebug apcu redis zlib zip
