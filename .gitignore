@@ -1,7 +1,4 @@
 db/
-
-#phpstorm
-.idea/
-
-/docker
-
+cache/
+shared/
+.directory

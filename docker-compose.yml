@@ -1,24 +1,27 @@
-version: '2'
+version: '3'
 
 services:
   web:
-    #container_name: web
     build: .
     ports:
       - 80:80
-#      - 9000:9000
+      - 443:443
+#      - "9000:9000"
+    container_name: gd
     volumes:
       - ../:/var/www/html/
       - ./conf/apache:/etc/apache2/sites-enabled/
-      - ./conf/php:/usr/local/etc/php/
+      - ./conf/php:/etc/php/7.2/cli/
+      - ./conf/php:/etc/php/7.2/apache2/
+      - ./shared:/shared
   db:
-    #container_name: db
     image: mysql
     ports:
       - 3306:3306
     volumes:
       - ./db/:/var/lib/mysql/
       - ./conf/mysql:/etc/mysql/
+      - ./shared:/shared
     environment:
       MYSQL_DATABASE: main
       MYSQL_USER: main_user

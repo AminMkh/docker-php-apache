@@ -1,35 +1,42 @@
-FROM php:7-apache
+FROM ubuntu:16.04
 
-# echo PHP version :)
-RUN php -v & a2query -v
+MAINTAINER Amin M
 
-# installing required stuff
-RUN apt-get update
-RUN apt-get install -y unzip libaio-dev libmcrypt-dev git libgd2-xpm-dev*
+# clean up
+RUN apt clean && apt-get update && apt-get upgrade -y
 
-# PHP extensions
-RUN \
-    docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
-    && docker-php-ext-configure mysqli --with-mysqli=mysqlnd \
-    && docker-php-ext-install pdo_mysql \
-    && docker-php-ext-install mbstring \
-    && docker-php-ext-install mcrypt \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) gd \
-	&& docker-php-ext-install mysqli \
-	&& docker-php-ext-install pdo_mysql \
-	&& docker-php-ext-install zip
-  
+# php required settings
+RUN apt install -y locales
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+# apache 2
+RUN apt install apache2 -y
+RUN a2enmod ssl rewrite
+
+# random
+RUN apt install  -y \
+	curl zip unzip git software-properties-common
+
+# install PHP
+RUN add-apt-repository ppa:ondrej/php -y
+RUN apt update
+RUN apt install -y php7.2 php7.2-cli php7.2-common php7.2-mbstring php7.2-xml
+
 # PHP composer
 RUN curl -sS https://getcomposer.org/installer | php --  --install-dir=/usr/bin --filename=composer
-
-# apache configurations, mod rewrite
-RUN a2enmod rewrite
-RUN a2enmod ssl
 
 # nodejs latest
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt install -y nodejs
 
 # zip extension
-RUN pecl install xdebug apcu redis zlib zip
+#RUN pecl install xdebug apcu redis zlib zip
+WORKDIR /var/www/html/
+
+CMD ["apachectl", "-d", "/etc/apache2", "-f", "apache2.conf", "-e", "info", "-DFOREGROUND"]
+#CMD ["/bin/bash",  "-c",  "tail -f /dev/null"]
+#ENTRYPOINT ["/usr/sbin/apache2", "-k", "start"]
+
