@@ -23,7 +23,7 @@ RUN apt install  -y \
 # install PHP
 RUN add-apt-repository ppa:ondrej/php -y
 RUN apt update
-RUN apt install -y php7.2 php7.2-cli php7.2-common php7.2-mbstring php7.2-xml
+RUN apt install -y php7.2 php7.2-cli php7.2-common php7.2-mbstring php7.2-xml php7.2-mysqlnd php7.2-php7.2-pdo-sqlite
 
 # PHP composer
 RUN curl -sS https://getcomposer.org/installer | php --  --install-dir=/usr/bin --filename=composer
