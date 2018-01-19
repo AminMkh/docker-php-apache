@@ -1,5 +1,4 @@
-# wordpress-docker
+# docker-php7-apache
 
-Quick docker image to use with Wordpress 4.x
+Quick docker image to use with Laravel
 
-remember to create a .htaccess file
