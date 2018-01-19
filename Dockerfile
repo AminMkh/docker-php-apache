@@ -36,6 +36,9 @@ RUN apt install -y nodejs
 #RUN pecl install xdebug apcu redis zlib zip
 WORKDIR /var/www/html/
 
+RUN ln -sf /dev/stdout /var/log/apache2/access.log \
+    && ln -sf /dev/stderr /var/log/apache2/error.log
+
 CMD ["apachectl", "-d", "/etc/apache2", "-f", "apache2.conf", "-e", "info", "-DFOREGROUND"]
 #CMD ["/bin/bash",  "-c",  "tail -f /dev/null"]
 #ENTRYPOINT ["/usr/sbin/apache2", "-k", "start"]
