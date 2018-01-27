@@ -33,7 +33,10 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt install -y nodejs
 
 # zip extension
-#RUN pecl install xdebug apcu redis zlib zip
+RUN apt install php7.2-dev -y
+RUN apt install php-pear -y
+##RUN pecl install xdebug
+
 WORKDIR /var/www/html/
 
 # apache2 log errors to terminal
