@@ -2,16 +2,15 @@ version: '3'
 
 services:
   web:
-    build: build/apache
+    build: build/nginx
     ports:
       - 80:80
       - 443:443
 #      - "9000:9000"
-    container_name: web
     volumes:
       - ../:/var/www/html/
-      - ./conf/apache:/etc/apache2/sites-enabled/
-#      - ./conf/nginx:/etc/nginx/sites-available
+#      - ./conf/apache:/etc/apache2/sites-enabled/
+      - ./conf/nginx:/etc/nginx/sites-available
       - ./shared:/shared
   php:
     build: build/php
