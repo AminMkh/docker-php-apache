@@ -18,7 +18,6 @@ services:
     volumes:
       - ../:/var/www/html/
       - ./conf/php:/etc/php/7.2/cli/
-      - ./conf/php:/etc/php/7.2/apache2/
       - ./shared:/shared
   db:
     image: mysql
@@ -33,3 +32,27 @@ services:
       MYSQL_USER: main_user
       MYSQL_PASSWORD: main_password
       MYSQL_ROOT_PASSWORD: root_password
+#  cache:
+#    image: redis
+#    ports:
+#      - 6379:6379
+#    volumes:
+#      - ./cache:/data
+#      - ./shared:/shared
+#    environment:
+#      - ALLOW_EMPTY_PASSWORD=yes
+#  memcached:
+#    image: memcached
+#    ports:
+#      - 11211:11211
+#    volumes:
+#      - ./shared:/shared
+#    environment:
+#      - MEMCACHED_USERNAME=root
+#      - MEMCACHED_PASSWORD=root_password
+#      - MEMCACHED_MEMORY_LIMIT=128
+#  elasticsearch:
+#    image: elasticsearch
+#    ports:
+#      - 9200:9200
+#      - 9300:9300
