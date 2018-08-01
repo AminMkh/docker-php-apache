@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
-MAINTAINER Amin M
 
+RUN echo 123
 # clean up
 RUN apt clean && apt update && apt upgrade -y
 
@@ -26,18 +26,18 @@ RUN apt install  -y \
 # install PHP
 RUN add-apt-repository ppa:ondrej/php -y
 RUN apt update
-RUN apt install -y php7.1 php7.1-cli php7.1-common \
-    php7.1-mbstring php7.1-xml php7.1-mysqlnd php7.1-pdo-sqlite \
-    php7.1-gd php7.1-curl php7.1-zip php7.1-soap php7.1-intl \
-    php7.1-fpm php7.1-apcu
+RUN apt install -y php7.0 php7.0-cli php7.0-common \
+    php7.0-mbstring php7.1-xml php7.0-mysqlnd php7.1-pdo-sqlite \
+    php7.0-gd php7.0-curl php7.0-zip php7.0-soap php7.0-intl \
+    php7.0-fpm php7.0-apcu
 
 # php fpm
-RUN echo "listen = 0.0.0.0:9000" >> /etc/php/7.1/fpm/pool.d/www.conf
-RUN service php7.1-fpm start
+RUN echo "listen = 0.0.0.0:9000" >> /etc/php/7.0/fpm/pool.d/www.conf
+RUN service php7.0-fpm start
 
 # PHP composer
 RUN curl -sS https://getcomposer.org/installer | php --  --install-dir=/usr/bin --filename=composer
 
 WORKDIR /var/www/html/
 
-CMD ["php-fpm7.1", "-F"]
+CMD ["php-fpm7.0", "-F"]
