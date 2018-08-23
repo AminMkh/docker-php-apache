@@ -1,7 +1,8 @@
-FROM ubuntu:16.04
+FROM ubuntu:latest
 
 MAINTAINER Amin M
 
+ENV DEBIAN_FRONTEND noninteractive
 # clean up
 RUN apt clean && apt update && apt upgrade -y
 
@@ -9,7 +10,7 @@ RUN apt clean && apt update && apt upgrade -y
 RUN apt-get update \
     && apt-get install -y unzip libaio-dev libmcrypt-dev git libzip-dev\
 		libmcrypt-dev \
-		libpng12-dev \
+		libpng-dev \
     && apt-get clean -y
 
 # php required settings
@@ -23,15 +24,17 @@ ENV LC_ALL en_US.UTF-8
 RUN apt install  -y \
 	curl zip unzip git software-properties-common
 
-# install PHP
+# PHP repos
 RUN add-apt-repository ppa:ondrej/php -y
 RUN apt update
+
+# PHP install
 RUN apt install -y php7.2 php7.2-cli php7.2-common \
     php7.2-mbstring php7.2-xml php7.2-mysqlnd php7.2-pdo-sqlite \
     php7.2-gd php7.2-curl php7.2-zip php7.2-soap php7.2-intl \
     php7.2-fpm
 
-# php fpm
+# PHP fpm
 RUN echo "listen = 0.0.0.0:9000" >> /etc/php/7.2/fpm/pool.d/www.conf
 RUN service php7.2-fpm start
 

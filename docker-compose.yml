@@ -13,10 +13,10 @@ services:
 #      - ./conf/nginx:/etc/nginx/sites-available
       - ./shared:/shared
   php:
-    build: build/php7.0
+    build: build/php7.2
     volumes:
       - ../:/var/www/html/
-      - ./conf/php7.0:/etc/php/7.0/cli/
+      - ./conf/php7.2:/etc/php/7.2/cli/
       - ./shared:/shared
   db:
     image: mysql
@@ -24,7 +24,7 @@ services:
       - 3306:3306
     volumes:
       - ./db/:/var/lib/mysql/
-      - ./conf/mysql:/etc/mysql/
+#      - ./conf/mysql:/etc/mysql/
       - ./shared:/shared
     environment:
       MYSQL_DATABASE: main
