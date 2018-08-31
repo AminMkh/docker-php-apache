@@ -32,7 +32,7 @@ RUN apt update
 RUN apt install -y php7.2 php7.2-cli php7.2-common \
     php7.2-mbstring php7.2-xml php7.2-mysqlnd php7.2-pdo-sqlite \
     php7.2-gd php7.2-curl php7.2-zip php7.2-soap php7.2-intl \
-    php7.2-fpm
+    php7.2-fpm php7.2-apcu
 
 # PHP fpm
 RUN echo "listen = 0.0.0.0:9000" >> /etc/php/7.2/fpm/pool.d/www.conf

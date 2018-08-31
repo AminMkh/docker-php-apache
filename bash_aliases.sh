@@ -29,4 +29,4 @@ alias cu='composer update'
 alias ci='composer install'
 alias cda='composer dump-autoload -o'
 
-
+alias permissions='chmod 777 -R storage/ bootstrap/cache'
