@@ -30,3 +30,4 @@ alias ci='composer install'
 alias cda='composer dump-autoload -o'
 
 alias permissions='chmod 777 -R storage/ bootstrap/cache'
+alias composer='/usr/bin/composer -vvv'
