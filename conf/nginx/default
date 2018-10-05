@@ -8,7 +8,7 @@ server {
     server_name localhost;
     #return 301 https://$server_name$request_uri;
 
-    set $WWW_ROOT /var/www/html/public;
+    set $WWW_ROOT /var/www/html/;
     root $WWW_ROOT;
 
     index index.php index.html index.htm index.nginx-debian.html;
@@ -16,7 +16,7 @@ server {
     server_name localhost;
 
     location / {
-        try_files $uri $uri/ /index.php?$query_string;
+        try_files $uri $uri/ /dashboard/public/index.php?$query_string;
     }
 
     location ~ \.php$ {
@@ -34,32 +34,3 @@ server {
 
 }
 
-
-server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-
-    set $WWW_ROOT /var/www/html/;
-    root $WWW_ROOT;
-
-    index index.php index.html index.htm index.nginx-debian.html;
-
-    server_name localhost;
-
-    location / {
-            try_files $uri $uri/ /index.php?$query_string;
-    }
-
-    location ~ \.php$ {
-            #include snippets/fastcgi-php.conf;
-            #fastcgi_pass unix:/run/php/php7.0-fpm.sock;
-    }
-
-    location ~ /\.ht {
-            deny all;
-    }
-
-    location ~ /.well-known {
-            allow all;
-    }
-}
