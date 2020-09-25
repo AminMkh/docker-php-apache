@@ -14,10 +14,10 @@ services:
       - ./conf/nginx:/etc/nginx/sites-available
       - ./shared:/shared
   php:
-    build: build/php7.2
+    build: build/php7.4
     volumes:
       - ../:/var/www/html/
-      - ./conf/php7.2:/etc/php/7.2/cli/
+      - ./conf/php7.4:/etc/php/7.4
       - ./shared:/shared
   db:
     image: mysql
