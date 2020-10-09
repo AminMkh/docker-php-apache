@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-MAINTAINER Amin M
+LABEL maintainer="AminMukh@docker"
 
 ENV DEBIAN_FRONTEND noninteractive
 # clean up
@@ -44,6 +44,10 @@ RUN service php$v-fpm start
 RUN curl -sS https://getcomposer.org/installer | php --  --install-dir=/usr/bin --filename=composer
 
 WORKDIR /var/www/html/
+
+# add laravel aliases
+ADD bash_aliases.sh /root/bash_aliases.sh
+RUN echo "source /root/bash_aliases.sh" >> ~/.bashrc
 
 ENV cmd "php-fpm${v}"
 CMD ${cmd} -F

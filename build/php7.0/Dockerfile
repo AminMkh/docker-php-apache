@@ -1,7 +1,5 @@
 FROM ubuntu:16.04
 
-
-RUN echo 123
 # clean up
 RUN apt clean && apt update && apt upgrade -y
 
