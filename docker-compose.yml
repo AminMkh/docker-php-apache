@@ -19,15 +19,16 @@ services:
       - ../backend:/var/www/html
       - ./conf/php${PHP_VERSION}:/etc/php/php${PHP_VERSION}
       - ./shared:/shared
-    # depends_on:
-    #   - db
+    depends_on:
+      - db
 
   db:
     image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
     ports:
       - 3306:3306
     volumes:
-      - ./db/:/var/lib/mysql/:rw 
+      - db:/var/lib/mysql/:rw 
 #      - ./conf/mysql:/etc/mysql/
       - ./shared:/shared
     environment:
@@ -35,3 +36,6 @@ services:
       MYSQL_USER: main_user
       MYSQL_PASSWORD: main_password
       MYSQL_ROOT_PASSWORD: root_password
+
+volumes:
+  db:
