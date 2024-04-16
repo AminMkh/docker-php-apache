@@ -1,30 +1,33 @@
-version: '3'
-
 services:
   web:
     build: build/nginx
     ports:
       - 80:80
-      - 443:443
+      # - 443:443
       - 8000:8000
 #      - "9000:9000"
     volumes:
-      - ../:/var/www/html/
-#      - ./conf/apache:/etc/apache2/sites-enabled/
+      - ../backend:/var/www/html
       - ./conf/nginx:/etc/nginx/sites-available
       - ./shared:/shared
+    depends_on:
+      - php
+
   php:
-    build: build/php7.4
+    build: build/php8.1
     volumes:
       - ../:/var/www/html/
-      - ./conf/php7.4:/etc/php/7.4
+      - ./conf/php8.1:/etc/php/php8.1
       - ./shared:/shared
+    # depends_on:
+    #   - db
+
   db:
-    image: mysql
+    image: mysql:8
     ports:
       - 3306:3306
     volumes:
-      - ./db/:/var/lib/mysql/
+      - ./db/:/var/lib/mysql/:rw 
 #      - ./conf/mysql:/etc/mysql/
       - ./shared:/shared
     environment:
@@ -32,27 +35,3 @@ services:
       MYSQL_USER: main_user
       MYSQL_PASSWORD: main_password
       MYSQL_ROOT_PASSWORD: root_password
-#  cache:
-#    image: redis
-#    ports:
-#      - 6379:6379
-#    volumes:
-#      - ./cache:/data
-#      - ./shared:/shared
-#    environment:
-#      - ALLOW_EMPTY_PASSWORD=yes
-#  memcached:
-#    image: memcached
-#    ports:
-#      - 11211:11211
-#    volumes:
-#      - ./shared:/shared
-#    environment:
-#      - MEMCACHED_USERNAME=root
-#      - MEMCACHED_PASSWORD=root_password
-#      - MEMCACHED_MEMORY_LIMIT=128
-#  elasticsearch:
-#    image: elasticsearch
-#    ports:
-#      - 9200:9200
-#      - 9300:9300
