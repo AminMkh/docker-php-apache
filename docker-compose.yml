@@ -14,10 +14,10 @@ services:
       - php
 
   php:
-    build: build/php8.1
+    build: build/php${PHP_VERSION}
     volumes:
-      - ../:/var/www/html/
-      - ./conf/php8.1:/etc/php/php8.1
+      - ../backend:/var/www/html
+      - ./conf/php${PHP_VERSION}:/etc/php/php${PHP_VERSION}
       - ./shared:/shared
     # depends_on:
     #   - db
