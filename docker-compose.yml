@@ -28,7 +28,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - db:/var/lib/mysql/:rw 
+      - db:/var/lib/mysql/
 #      - ./conf/mysql:/etc/mysql/
       - ./shared:/shared
     environment:
