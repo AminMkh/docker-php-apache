@@ -1,26 +1,41 @@
-version: '2'
-
 services:
   web:
-    container_name: ntm_web
-    build: .
+    build: build/nginx
     ports:
-      - "80:80"
+      - 80:80
+      # - 443:443
+      - 8000:8000
 #      - "9000:9000"
     volumes:
-      - ./src:/var/www/html/
-      - ./conf/apache:/etc/apache2/sites-enabled/
-      - ./conf/php:/usr/local/etc/php/
-  db:
-    container_name: ntm_db
-    image: mysql
-    ports:
-      - "3306:3306"
+      - ../backend:/var/www/html
+      - ./conf/nginx:/etc/nginx/sites-available
+      - ./shared:/shared
+    depends_on:
+      - php
+
+  php:
+    build: build/php${PHP_VERSION}
     volumes:
-      - ./db/:/var/lib/mysql/
-      - ./conf/mysql:/etc/mysql/
+      - ../backend:/var/www/html
+      - ./conf/php${PHP_VERSION}:/etc/php/php${PHP_VERSION}
+      - ./shared:/shared
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql/
+#      - ./conf/mysql:/etc/mysql/
+      - ./shared:/shared
     environment:
-      MYSQL_DATABASE: ntm
-      MYSQL_USER: ntm_user
-      MYSQL_PASSWORD: ntm_password
-      MYSQL_ROOT_PASSWORD: ntm_password
+      MYSQL_DATABASE: main
+      MYSQL_USER: main_user
+      MYSQL_PASSWORD: main_password
+      MYSQL_ROOT_PASSWORD: root_password
+
+volumes:
+  db:
